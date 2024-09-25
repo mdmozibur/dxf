@@ -91,6 +91,15 @@ namespace IxMilia.Dxf
 
         private static void BindItemPointers(IDxfItemInternal item, Dictionary<DxfHandle, IDxfItemInternal> handleMap, HashSet<IDxfItemInternal> visitedItems, HashSet<IDxfItemInternal> visitedChildren)
         {
+            if(item is DxfBlockRecord br)
+            {
+                if (handleMap.ContainsKey(br._layout_pointer.Handle))
+                {
+                    br._layout_pointer.Item = handleMap[br._layout_pointer.Handle];
+                    BindPointers((IDxfItemInternal)br._layout_pointer.Item, handleMap, visitedItems, visitedChildren);
+                    SetOwner((IDxfItemInternal)br._layout_pointer.Item, item, isWriting: false);
+                }
+            }
             foreach (var child in item.GetPointers())
             {
                 if (handleMap.ContainsKey(child.Handle))

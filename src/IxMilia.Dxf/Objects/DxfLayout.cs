@@ -41,12 +41,6 @@ namespace IxMilia.Dxf.Objects
             LayoutName = layoutName;
         }
 
-        public IDxfItem PaperSpaceObject
-        {
-            get { return Owner; }
-            set { ((IDxfItemInternal)this).SetOwner(value); }
-        }
-
         internal override DxfObject PopulateFromBuffer(DxfCodePairBufferReader buffer)
         {
             bool isReadingPlotSettings = true;
@@ -180,6 +174,9 @@ namespace IxMilia.Dxf.Objects
                     break;
                 case 146:
                     this.Elevation = (pair.DoubleValue);
+                    break;
+                case 330:
+                    this.BlockRecordPointer.Handle = HandleString(pair.StringValue);
                     break;
                 case 331:
                     this.ViewportPointer.Handle = HandleString(pair.StringValue);

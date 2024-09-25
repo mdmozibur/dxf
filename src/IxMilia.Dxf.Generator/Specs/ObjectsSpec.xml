@@ -358,7 +358,8 @@
         <Property Name="UcsXAxis" Code="16" Type="DxfVector" DefaultValue="DxfVector.XAxis" CodeOverrides="16,26,36" />
         <Property Name="UcsYAxis" Code="17" Type="DxfVector" DefaultValue="DxfVector.YAxis" CodeOverrides="17,27,37" />
         <Property Name="UcsOrthographicType" Code="76" Type="DxfUcsOrthographicType" DefaultValue="DxfUcsOrthographicType.NotOrthographic" ReadConverter="(DxfUcsOrthographicType){0}" WriteConverter="(short){0}" />
-        <Pointer Name="Viewport" Code="330" Type="IDxfItem" />
+        <Pointer Name="BlockRecord" Code="330" Type="IDxfItem" />
+        <Pointer Name="Viewport" Code="331" Type="IDxfItem" />
         <Pointer Name="TableRecord" Code="345" Type="IDxfItem" />
         <Pointer Name="TableRecordBase" Code="346" Type="IDxfItem" />
         <!-- plot object (code 333) is inherited from `DxfPlotSettings` -->
