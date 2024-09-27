@@ -8,5 +8,7 @@ namespace IxMilia.Dxf.Entities
         public double StartingWidth { get; set; }
         public double EndingWidth { get; set; }
         public double Bulge { get; set; }
+
+        public DxfPoint Location => new DxfPoint(X, Y, 0);
     }
 }

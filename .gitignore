@@ -8,4 +8,4 @@ artifacts/
 
 # ignore generated code
 Generated/
-src/IxMilia.Dxf/*/*Generated.cs
+# src/IxMilia.Dxf/*/*Generated.cs
