@@ -9,7 +9,7 @@ namespace IxMilia.Dxf.Entities
             public double Angle { get; set; } = 0.0;
             public DxfPoint BasePoint { get; set; } = DxfPoint.Origin;
             public DxfVector Offset { get; set; } = DxfVector.Zero;
-            public List<double> DashLengths { get; } = new List<double>();
+            public List<double> DashLengths { get; set; } = new List<double>();
 
             internal bool TrySetPair(DxfCodePair pair)
             {
