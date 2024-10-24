@@ -52,7 +52,7 @@ namespace IxMilia.Dxf.Tables
 
         internal abstract DxfTableType TableType { get; }
         internal virtual string TableClassName { get { return null; } }
-        public DxfHandle Handle { get; set; }
+        public DxfHandle Handle { get; internal set; }
         public DxfHandle OwnerHandle { get; set; }
         public IList<DxfCodePairGroup> ExtensionDataGroups { get; }
 

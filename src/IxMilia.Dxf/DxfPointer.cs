@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using IxMilia.Dxf.Blocks;
 using IxMilia.Dxf.Entities;
 using IxMilia.Dxf.Objects;
+using IxMilia.Dxf.Tables;
 
 namespace IxMilia.Dxf
 {
@@ -201,7 +203,19 @@ namespace IxMilia.Dxf
             }
 
             Debug.Assert(item.Handle.Value == 0);
-            item.Handle = new DxfHandle(nextHandle.Value);
+            if(item is DxfEntity ent)
+                ent.Handle = new DxfHandle(nextHandle.Value);
+            else if(item is DxfBlock.DxfEndBlock enb)
+                enb.Handle = new DxfHandle(nextHandle.Value);
+            else if(item is DxfObject obj)
+                obj.Handle = new DxfHandle(nextHandle.Value);
+            else if(item is DxfLineTypeElement lte)
+                lte.Handle = new DxfHandle(nextHandle.Value);
+            else if(item is DxfTable tbl)
+                tbl.Handle = new DxfHandle(nextHandle.Value);
+            else if(item is DxfBlock blk)
+                blk.Handle = new DxfHandle(nextHandle.Value);
+
             nextHandle = new DxfHandle(nextHandle.Value + 1);
             if (item.OwnerHandle.Value == 0 && ownerHandle.Value != 0)
             {
@@ -235,7 +249,19 @@ namespace IxMilia.Dxf
         {
             if (item != null && visitedItems.Add(item))
             {
-                item.Handle = default(DxfHandle);
+                if (item is DxfEntity ent)
+                    ent.Handle = default(DxfHandle);
+                else if (item is DxfBlock.DxfEndBlock enb)
+                    enb.Handle = default(DxfHandle);
+                else if (item is DxfObject obj)
+                    obj.Handle = default(DxfHandle);
+                else if (item is DxfLineTypeElement lte)
+                    lte.Handle = default(DxfHandle);
+                else if (item is DxfTable tbl)
+                    tbl.Handle = default(DxfHandle);
+                else if (item is DxfBlock blk)
+                    blk.Handle = default(DxfHandle);
+
                 foreach (var child in item.GetChildItems())
                 {
                     ClearPointers(child, visitedItems);

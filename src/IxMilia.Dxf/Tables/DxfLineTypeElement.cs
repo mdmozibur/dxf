@@ -100,7 +100,7 @@ namespace IxMilia.Dxf
             }
         }
 
-        DxfHandle IDxfItemInternal.Handle { get; set; }
+        public DxfHandle Handle { get; internal set; }
         DxfHandle IDxfItemInternal.OwnerHandle { get; set; }
         public IDxfItem Owner { get; private set; }
 

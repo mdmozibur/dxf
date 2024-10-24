@@ -7,10 +7,10 @@ namespace IxMilia.Dxf.Blocks
 {
     public partial class DxfBlock
     {
-        private class DxfEndBlock : IDxfItemInternal
+        internal class DxfEndBlock : IDxfItemInternal
         {
             #region IDxfItem and IDxfItemInternal
-            DxfHandle IDxfItemInternal.Handle { get; set; }
+            public DxfHandle Handle { get; internal set; }
             DxfHandle IDxfItemInternal.OwnerHandle { get; set; }
             public IDxfItem Owner { get; private set; }
 
@@ -45,7 +45,7 @@ namespace IxMilia.Dxf.Blocks
                 switch (pair.Code)
                 {
                     case 5:
-                        ((IDxfItemInternal)this).Handle = DxfCommonConverters.HandleString(pair.StringValue);
+                        Handle = DxfCommonConverters.HandleString(pair.StringValue);
                         break;
                     case 8:
                         // just a re-iteration of the layer

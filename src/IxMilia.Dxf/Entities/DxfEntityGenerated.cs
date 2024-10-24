@@ -12,7 +12,7 @@ namespace IxMilia.Dxf.Entities
     /// </summary>
     public partial class DxfEntity : IDxfItemInternal
     {
-        DxfHandle IDxfItemInternal.Handle { get; set; }
+        public DxfHandle Handle { get; internal set; }
         DxfHandle IDxfItemInternal.OwnerHandle { get; set; }
         public IDxfItem Owner { get; private set;}
 
@@ -159,7 +159,7 @@ namespace IxMilia.Dxf.Entities
         }
         internal void CopyCommonPropertiesFrom(DxfEntity other)
         {
-            ((IDxfItemInternal)this).Handle = ((IDxfItemInternal)other).Handle;
+            Handle = ((IDxfItemInternal)other).Handle;
             ((IDxfItemInternal)this).OwnerHandle = ((IDxfItemInternal)other).OwnerHandle;
             ((IDxfItemInternal)this).SetOwner(((IDxfItemInternal)other).Owner);
             this.IsInPaperSpace = other.IsInPaperSpace;
@@ -298,7 +298,7 @@ namespace IxMilia.Dxf.Entities
             switch (pair.Code)
             {
                 case 5:
-                    ((IDxfItemInternal)this).Handle = HandleString(pair.StringValue);
+                    Handle = HandleString(pair.StringValue);
                     break;
                 case 330:
                     ((IDxfItemInternal)this).OwnerHandle = HandleString(pair.StringValue);

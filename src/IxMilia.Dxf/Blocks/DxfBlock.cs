@@ -16,7 +16,7 @@ namespace IxMilia.Dxf.Blocks
 
         private int Flags = 0;
 
-        DxfHandle IDxfItemInternal.Handle { get; set; }
+        public DxfHandle Handle { get; internal set; }
         public IDxfItem Owner { get; private set; }
         DxfHandle IDxfItemInternal.OwnerHandle { get; set; }
         void IDxfItemInternal.SetOwner(IDxfItem owner)
@@ -237,7 +237,7 @@ namespace IxMilia.Dxf.Blocks
                                 block.Description = pair.StringValue;
                                 break;
                             case 5:
-                                ((IDxfItemInternal)block).Handle = DxfCommonConverters.HandleString(pair.StringValue);
+                                block.Handle = DxfCommonConverters.HandleString(pair.StringValue);
                                 break;
                             case 8:
                                 block.Layer = pair.StringValue;
