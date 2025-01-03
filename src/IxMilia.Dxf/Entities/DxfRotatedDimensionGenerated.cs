@@ -15,8 +15,8 @@ namespace IxMilia.Dxf.Entities
     {
         public override DxfEntityType EntityType { get { return DxfEntityType.Dimension; } }
         public DxfPoint InsertionPoint { get; set; }
-        public DxfPoint DefinitionPoint2 { get; set; }
-        public DxfPoint DefinitionPoint3 { get; set; }
+        public DxfPoint FirstPoint { get; set; }
+        public DxfPoint SecondPoint { get; set; }
         public double RotationAngle { get; set; }
         public double ExtensionLineAngle { get; set; }
 
@@ -35,8 +35,8 @@ namespace IxMilia.Dxf.Entities
             base.Initialize();
             this.DimensionType = DxfDimensionType.RotatedHorizontalOrVertical;
             this.InsertionPoint = DxfPoint.Origin;
-            this.DefinitionPoint2 = DxfPoint.Origin;
-            this.DefinitionPoint3 = DxfPoint.Origin;
+            this.FirstPoint = DxfPoint.Origin;
+            this.SecondPoint = DxfPoint.Origin;
             this.RotationAngle = 0.0;
             this.ExtensionLineAngle = 0.0;
         }
@@ -55,12 +55,12 @@ namespace IxMilia.Dxf.Entities
                 pairs.Add(new DxfCodePair(32, InsertionPoint.Z));
             }
 
-            pairs.Add(new DxfCodePair(13, DefinitionPoint2.X));
-            pairs.Add(new DxfCodePair(23, DefinitionPoint2.Y));
-            pairs.Add(new DxfCodePair(33, DefinitionPoint2.Z));
-            pairs.Add(new DxfCodePair(14, DefinitionPoint3.X));
-            pairs.Add(new DxfCodePair(24, DefinitionPoint3.Y));
-            pairs.Add(new DxfCodePair(34, DefinitionPoint3.Z));
+            pairs.Add(new DxfCodePair(13, FirstPoint.X));
+            pairs.Add(new DxfCodePair(23, FirstPoint.Y));
+            pairs.Add(new DxfCodePair(33, FirstPoint.Z));
+            pairs.Add(new DxfCodePair(14, SecondPoint.X));
+            pairs.Add(new DxfCodePair(24, SecondPoint.Y));
+            pairs.Add(new DxfCodePair(34, SecondPoint.Z));
             pairs.Add(new DxfCodePair(50, this.RotationAngle));
             if (this.ExtensionLineAngle != 0.0)
             {
@@ -91,22 +91,22 @@ namespace IxMilia.Dxf.Entities
                     this.InsertionPoint = this.InsertionPoint.WithUpdatedZ(pair.DoubleValue);
                     break;
                 case 13:
-                    this.DefinitionPoint2 = this.DefinitionPoint2.WithUpdatedX(pair.DoubleValue);
+                    this.FirstPoint = this.FirstPoint.WithUpdatedX(pair.DoubleValue);
                     break;
                 case 23:
-                    this.DefinitionPoint2 = this.DefinitionPoint2.WithUpdatedY(pair.DoubleValue);
+                    this.FirstPoint = this.FirstPoint.WithUpdatedY(pair.DoubleValue);
                     break;
                 case 33:
-                    this.DefinitionPoint2 = this.DefinitionPoint2.WithUpdatedZ(pair.DoubleValue);
+                    this.FirstPoint = this.FirstPoint.WithUpdatedZ(pair.DoubleValue);
                     break;
                 case 14:
-                    this.DefinitionPoint3 = this.DefinitionPoint3.WithUpdatedX(pair.DoubleValue);
+                    this.SecondPoint = this.SecondPoint.WithUpdatedX(pair.DoubleValue);
                     break;
                 case 24:
-                    this.DefinitionPoint3 = this.DefinitionPoint3.WithUpdatedY(pair.DoubleValue);
+                    this.SecondPoint = this.SecondPoint.WithUpdatedY(pair.DoubleValue);
                     break;
                 case 34:
-                    this.DefinitionPoint3 = this.DefinitionPoint3.WithUpdatedZ(pair.DoubleValue);
+                    this.SecondPoint = this.SecondPoint.WithUpdatedZ(pair.DoubleValue);
                     break;
                 case 50:
                     this.RotationAngle = pair.DoubleValue;
@@ -123,11 +123,11 @@ namespace IxMilia.Dxf.Entities
 
         protected override IEnumerable<DxfPoint> GetExtentsPoints()
         {
-            yield return DefinitionPoint1;
+            yield return DefinitionPoint;
             yield return TextMidPoint;
             yield return InsertionPoint;
-            yield return DefinitionPoint2;
-            yield return DefinitionPoint3;
+            yield return FirstPoint;
+            yield return SecondPoint;
         }
     }
 }

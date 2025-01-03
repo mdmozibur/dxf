@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using IxMilia.Dxf.Collections;
 using IxMilia.Dxf.Entities;
 
@@ -106,6 +107,8 @@ namespace IxMilia.Dxf.Objects
         public IList<DxfCodePairGroup> ExtensionDataGroups { get; } = new ListNonNull<DxfCodePairGroup>();
 
         public IDictionary<string, DxfXDataApplicationItemCollection> XData { get; } = new DictionaryWithPredicate<string, DxfXDataApplicationItemCollection>((_key, value) => value != null);
+
+        internal DxfPointer ReactorsHandle { get; } = new DxfPointer();
 
         public abstract DxfObjectType ObjectType { get; }
 

@@ -28,6 +28,7 @@ namespace IxMilia.Dxf.Entities
 
         IEnumerable<DxfPointer> IDxfItemInternal.GetPointers()
         {
+            yield return ReactorsPointer;
             yield return PlotStylePointer;
         }
 

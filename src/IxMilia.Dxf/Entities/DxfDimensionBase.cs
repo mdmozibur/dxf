@@ -1,3 +1,6 @@
+using IxMilia.Dxf.Objects;
+using System.Collections;
+
 namespace IxMilia.Dxf.Entities
 {
     public partial class DxfDimensionBase : DxfEntity
@@ -7,6 +10,14 @@ namespace IxMilia.Dxf.Entities
         public bool IsOrdinateXType { get; set; } = false;
 
         public bool IsAtUserDefinedLocation { get; set; } = false;
+
+        public IxMilia.Dxf.Objects.DxfDimensionAssociativity Reactor
+        {
+            get
+            {
+                return ReactorsPointer.Item as IxMilia.Dxf.Objects.DxfDimensionAssociativity;
+            }
+        }
 
         protected override void CopyManualValues(DxfEntity other)
         {

@@ -4,8 +4,8 @@ namespace IxMilia.Dxf.Entities
     {
         public DxfPoint SecondExtensionLineP1
         {
-            get => DefinitionPoint1;
-            set => DefinitionPoint1 = value;
+            get => DefinitionPoint;
+            set => DefinitionPoint = value;
         }
     }
 }

@@ -16,7 +16,7 @@ namespace IxMilia.Dxf.Entities
         public override DxfEntityType EntityType { get { return DxfEntityType.Dimension; } }
         public DxfVersion Version { get; set; }
         public string BlockName { get; set; }
-        public DxfPoint DefinitionPoint1 { get; set; }
+        public DxfPoint DefinitionPoint { get; set; }
         public DxfPoint TextMidPoint { get; set; }
         public DxfDimensionType DimensionType { get; set; }
         public DxfAttachmentPoint AttachmentPoint { get; set; }
@@ -41,7 +41,7 @@ namespace IxMilia.Dxf.Entities
             other.XData.CopyItemsTo(this.XData);
             this.Version = other.Version;
             this.BlockName = other.BlockName;
-            this.DefinitionPoint1 = other.DefinitionPoint1;
+            this.DefinitionPoint = other.DefinitionPoint;
             this.TextMidPoint = other.TextMidPoint;
             this.DimensionType = other.DimensionType;
             this.AttachmentPoint = other.AttachmentPoint;
@@ -53,6 +53,7 @@ namespace IxMilia.Dxf.Entities
             this.HorizontalDirectionAngle = other.HorizontalDirectionAngle;
             this.Normal = other.Normal;
             this.DimensionStyleName = other.DimensionStyleName;
+            this.ReactorsPointer = other.ReactorsPointer;
         }
 
         protected override void Initialize()
@@ -60,7 +61,7 @@ namespace IxMilia.Dxf.Entities
             base.Initialize();
             this.Version = DxfVersion.R2010;
             this.BlockName = null;
-            this.DefinitionPoint1 = DxfPoint.Origin;
+            this.DefinitionPoint = DxfPoint.Origin;
             this.TextMidPoint = DxfPoint.Origin;
             this.DimensionType = DxfDimensionType.Aligned;
             this.AttachmentPoint = DxfAttachmentPoint.TopLeft;
@@ -91,9 +92,9 @@ namespace IxMilia.Dxf.Entities
                 pairs.Add(new DxfCodePair(2, this.BlockName));
             }
 
-            pairs.Add(new DxfCodePair(10, DefinitionPoint1.X));
-            pairs.Add(new DxfCodePair(20, DefinitionPoint1.Y));
-            pairs.Add(new DxfCodePair(30, DefinitionPoint1.Z));
+            pairs.Add(new DxfCodePair(10, DefinitionPoint.X));
+            pairs.Add(new DxfCodePair(20, DefinitionPoint.Y));
+            pairs.Add(new DxfCodePair(30, DefinitionPoint.Z));
             pairs.Add(new DxfCodePair(11, TextMidPoint.X));
             pairs.Add(new DxfCodePair(21, TextMidPoint.Y));
             pairs.Add(new DxfCodePair(31, TextMidPoint.Z));
@@ -161,13 +162,13 @@ namespace IxMilia.Dxf.Entities
                     this.DimensionStyleName = pair.StringValue;
                     break;
                 case 10:
-                    this.DefinitionPoint1 = this.DefinitionPoint1.WithUpdatedX(pair.DoubleValue);
+                    this.DefinitionPoint = this.DefinitionPoint.WithUpdatedX(pair.DoubleValue);
                     break;
                 case 20:
-                    this.DefinitionPoint1 = this.DefinitionPoint1.WithUpdatedY(pair.DoubleValue);
+                    this.DefinitionPoint = this.DefinitionPoint.WithUpdatedY(pair.DoubleValue);
                     break;
                 case 30:
-                    this.DefinitionPoint1 = this.DefinitionPoint1.WithUpdatedZ(pair.DoubleValue);
+                    this.DefinitionPoint = this.DefinitionPoint.WithUpdatedZ(pair.DoubleValue);
                     break;
                 case 11:
                     this.TextMidPoint = this.TextMidPoint.WithUpdatedX(pair.DoubleValue);

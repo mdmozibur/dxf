@@ -38,13 +38,13 @@ namespace IxMilia.Dxf.Objects
         public DxfRotatedDimensionType RotatedDimensionType { get; set; }
         public string ClassName { get; set; }
         public DxfObjectOsnapType ObjectOsnapType { get; set; }
-        public IDxfItem MainObject { get { return MainObjectPointer.Item as IDxfItem; } set { MainObjectPointer.Item = value; } }
+        public DxfEntity MainObject { get { return MainObjectPointer.Item as DxfEntity; } set { MainObjectPointer.Item = value; } }
         public DxfSubentityType MainObjectSubentityType { get; set; }
         public int MainObjectGsMarkerIndex { get; set; }
         public string MainObjectXrefHandle { get; set; }
         public double NearOsnapGeometryParameter { get; set; }
         public DxfPoint OsnapPoint { get; set; }
-        public IDxfItem IntersectionObject { get { return IntersectionObjectPointer.Item as IDxfItem; } set { IntersectionObjectPointer.Item = value; } }
+        public DxfEntity IntersectionObject { get { return IntersectionObjectPointer.Item as DxfEntity; } set { IntersectionObjectPointer.Item = value; } }
         public DxfSubentityType IntersectionSubentityType { get; set; }
         public int IntersectionObjectGsMarkerIndex { get; set; }
         public string IntersectionObjectXrefHandle { get; set; }

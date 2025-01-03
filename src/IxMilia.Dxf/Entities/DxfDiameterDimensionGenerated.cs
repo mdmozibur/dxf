@@ -14,7 +14,7 @@ namespace IxMilia.Dxf.Entities
     public partial class DxfDiameterDimension : DxfDimensionBase
     {
         public override DxfEntityType EntityType { get { return DxfEntityType.Dimension; } }
-        public DxfPoint DefinitionPoint2 { get; set; }
+        public DxfPoint AngleVertex { get; set; }
         public double LeaderLength { get; set; }
 
         public DxfDiameterDimension()
@@ -31,7 +31,7 @@ namespace IxMilia.Dxf.Entities
         {
             base.Initialize();
             this.DimensionType = DxfDimensionType.Diameter;
-            this.DefinitionPoint2 = DxfPoint.Origin;
+            this.AngleVertex = DxfPoint.Origin;
             this.LeaderLength = 0.0;
         }
 
@@ -42,9 +42,9 @@ namespace IxMilia.Dxf.Entities
             {
                 pairs.Add(new DxfCodePair(100, "AcDbDiametricDimension"));
             }
-            pairs.Add(new DxfCodePair(15, DefinitionPoint2.X));
-            pairs.Add(new DxfCodePair(25, DefinitionPoint2.Y));
-            pairs.Add(new DxfCodePair(35, DefinitionPoint2.Z));
+            pairs.Add(new DxfCodePair(15, AngleVertex.X));
+            pairs.Add(new DxfCodePair(25, AngleVertex.Y));
+            pairs.Add(new DxfCodePair(35, AngleVertex.Z));
             pairs.Add(new DxfCodePair(40, this.LeaderLength));
             if (writeXData)
             {
@@ -57,13 +57,13 @@ namespace IxMilia.Dxf.Entities
             switch (pair.Code)
             {
                 case 15:
-                    this.DefinitionPoint2 = this.DefinitionPoint2.WithUpdatedX(pair.DoubleValue);
+                    this.AngleVertex = this.AngleVertex.WithUpdatedX(pair.DoubleValue);
                     break;
                 case 25:
-                    this.DefinitionPoint2 = this.DefinitionPoint2.WithUpdatedY(pair.DoubleValue);
+                    this.AngleVertex = this.AngleVertex.WithUpdatedY(pair.DoubleValue);
                     break;
                 case 35:
-                    this.DefinitionPoint2 = this.DefinitionPoint2.WithUpdatedZ(pair.DoubleValue);
+                    this.AngleVertex = this.AngleVertex.WithUpdatedZ(pair.DoubleValue);
                     break;
                 case 40:
                     this.LeaderLength = pair.DoubleValue;
@@ -77,9 +77,9 @@ namespace IxMilia.Dxf.Entities
 
         protected override IEnumerable<DxfPoint> GetExtentsPoints()
         {
-            yield return DefinitionPoint1;
+            yield return DefinitionPoint;
             yield return TextMidPoint;
-            yield return DefinitionPoint2;
+            yield return AngleVertex;
         }
     }
 }

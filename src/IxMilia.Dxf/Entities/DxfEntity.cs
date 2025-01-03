@@ -229,6 +229,7 @@ namespace IxMilia.Dxf.Entities
         public IDictionary<string, DxfXDataApplicationItemCollection> XData { get; } = new DictionaryWithPredicate<string, DxfXDataApplicationItemCollection>((_key, value) => value != null);
 
         public abstract DxfEntityType EntityType { get; }
+        internal DxfPointer ReactorsPointer { get; set; } = new DxfPointer();
 
         protected virtual DxfAcadVersion MinVersion
         {
@@ -328,9 +329,20 @@ namespace IxMilia.Dxf.Entities
                     // pair was successfully applied; consume it
                     buffer.Advance();
                 }
+                else if (pair.Code == DxfCodePairGroup.GroupCodeNumber && !string.IsNullOrEmpty(pair.StringValue) && pair.StringValue == "{ACAD_REACTORS")
+                {
+                    buffer.Advance();
+                    var groupName = DxfCodePairGroup.GetGroupName(pair.StringValue);
+                    var val = DxfCodePairGroup.FromBuffer(buffer, groupName);
+                    if(val.Items.Count > 0 && val.Items[0] is DxfCodePair cp && cp.Code == 330 && !string.IsNullOrEmpty(cp.StringValue))
+                    {
+                        this.ReactorsPointer.Handle = HandleString(cp.StringValue);
+                    }
+                    //this.ReactorsHandle = HandleString(val.)
+                    //this.ReactorsHandle.Add();
+                }
                 else if (this.TrySetExtensionData(pair, buffer))
                 {
-                    // do nothing as TrySetExtensionData consumes as necessary
                 }
                 else
                 {

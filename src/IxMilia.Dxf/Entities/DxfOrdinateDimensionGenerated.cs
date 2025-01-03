@@ -86,7 +86,7 @@ namespace IxMilia.Dxf.Entities
 
         protected override IEnumerable<DxfPoint> GetExtentsPoints()
         {
-            yield return DefinitionPoint1;
+            yield return DefinitionPoint;
             yield return TextMidPoint;
             yield return DefinitionPoint2;
             yield return DefinitionPoint3;
